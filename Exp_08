@@ -1,0 +1,27 @@
+; Program to perform sorting of an array in descending order vals:DB 0xF 
+DB 0x5A 
+DB 0x24 DB 0x2 DB 0x56 last: DB 0 start: 
+print mem :8 MOV CH, OFFSET last outer: 
+MOV CL, OFFSET last MOV SI, OFFSET vals inner: 
+MOV AX, word [SI] 
+CMP AL, AH 
+JNC skip 
+XCHG AL, AH MOV word [SI], AX skip: 
+INC SI 
+DEC CL 
+JNZ inner DEC CH JNZ outer print mem :8 
+
+
+; Program to perform sorting of an array in ascending order vals:DB 0xF 
+DB 0x5A 
+DB 0x24 DB 0x2 DB 0x56 last: DB 0 start: 
+print mem :8 MOV CH, OFFSET last outer: 
+MOV CL, OFFSET last MOV SI, OFFSET vals inner: 
+MOV AX, word [SI] 
+CMP AL, AH 
+JC skip 
+XCHG AL, AH MOV word [SI], AX skip:
+
+INC SI 
+DEC CL 
+JNZ inner DEC CH JNZ outer print mem :8 
