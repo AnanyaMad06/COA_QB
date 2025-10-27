@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void printBinary(unsigned char num) {
+    for (int i = 7; i >= 0; i--) {
+        printf("%d", (num >> i) & 1);
+    }
+}
+
+int main() {
+    int choice;
+    unsigned int n1, n2, sum, diff;
+    int carry = 0, borrow = 0;
+
+    printf("Choose number system:\n");
+    printf("1. Binary (0-255)\n");
+    printf("2. Hexadecimal (00-FF)\n");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        // Binary input
+        char bin1[20], bin2[20];
+
+        printf("Enter first number: ");
+        scanf("%s", bin1);
+
+        printf("Enter second number: ");
+        scanf("%s", bin2);
+
+        n1 = strtol(bin1, NULL, 2);
+        n2 = strtol(bin2, NULL, 2);
+
+        // Addition
+        sum = n1 + n2;
+        carry = (sum > 255) ? 1 : 0;
+
+        printf("\nAddition result:\n");
+        printBinary(n1);
+        printf(" + ");
+        printBinary(n2);
+        printf(" = ");
+        printBinary((unsigned char)sum);
+        printf("\nCarry out: %d\n", carry);
+
+        // Subtraction
+        borrow = (n1 < n2) ? 1 : 0;
+        diff = (n1 - n2) & 0xFF;
+
+        printf("\nSubtraction result:\n");
+        printBinary(n1);
+        printf(" - ");
+        printBinary(n2);
+        printf(" = ");
+        printBinary((unsigned char)diff);
+        printf("\nBorrow: %d\n", borrow);
+
+    } else if (choice == 2) {
+        // Hexadecimal input
+        char hex1[10], hex2[10];
+
+        printf("Enter first number (00-FF hex): ");
+        scanf("%s", hex1);
+
+        printf("Enter second number (00-FF hex): ");
+        scanf("%s", hex2);
+
+        n1 = strtol(hex1, NULL, 16);
+        n2 = strtol(hex2, NULL, 16);
+
+        // Addition
+        sum = n1 + n2;
+        carry = (sum > 0xFF) ? 1 : 0;
+
+        printf("\nAddition result:\n");
+        printf("%02X + %02X = %02X\n", n1, n2, sum & 0xFF);
+        printf("Carry : %d\n", carry);
+
+        // Subtraction
+        borrow = (n1 < n2) ? 1 : 0;
+        diff = (n1 - n2) & 0xFF;
+
+        printf("\nSubtraction result:\n");
+        printf("%02X - %02X = %02X\n", n1, n2, diff);
+        printf("Borrow: %d\n", borrow);
+
+    } else {
+        printf("Invalid choice!\n");
+    }
+
+    return 0;
+}
